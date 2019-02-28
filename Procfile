@@ -1,1 +1,1 @@
-bot: python3.6 peopleBot.py
+web: python3.6 peopleBot.py
