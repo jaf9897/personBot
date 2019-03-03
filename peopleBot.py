@@ -37,7 +37,7 @@ async def on_reaction_add(reaction, user):
     else:
         raise ValueError("Unknown emoji of type:", type(emoji))
 
-    if author == client.user and name == "troops":
+    if author == client.user and name == "20":
         await client.send_message(channel, "There is nothing more small brained than small braining a machine, you coward.")
 
 @client.event
