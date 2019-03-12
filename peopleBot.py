@@ -15,14 +15,20 @@ async def on_message(message):
 
     # If person is sent
     if message.content.startswith('!person'):
-        msg = 'Generating image...'.format(message)
+        """ msg = 'Generating image...'.format(message)
         await client.send_message(message.channel, msg)
         imgurl ="https://thispersondoesnotexist.com/image"
-        req.urlretrieve(imgurl, "image.jpg")  # Download TPDNE image
+        res = req.urlopen(imgurl)  # Download TPDNE image
+        output = open("image.jpg","wb")
+        output.write(res.read())
+        output.close()
         with open('image.jpg', 'rb') as f:
             msg = 'This person does not exist: '.format(message)
             await client.send_message(message.channel, msg)
             await client.send_file(message.channel, f) 
+        """
+        msg = "Farewell to thee, farewell to thee \nThou charming one who dwells in shaded bowers \nOne fond embrace ere I depart \nUntil we meet again." 
+        await client.send_message(message.channel, msg)
 
 # Respond to small brain reaction.
 @client.event
