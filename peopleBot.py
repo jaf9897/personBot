@@ -1,8 +1,12 @@
 # Work with Python 3.6
 import discord
 import urllib.request as req
-                                            
+import random
+import asyncio
+
 TOKEN = 'NTUwNTAyNjgwNTM2MDIzMDQx.D1jiQQ.Y9f_MmsbsZcP8cdSVEaw18CFPyo'
+blakes = open("blake.txt", "r")
+proverbs = blakes.read().split('^')
 
 client = discord.Client()
 
@@ -27,9 +31,12 @@ async def on_message(message):
             await client.send_message(message.channel, msg)
             await client.send_file(message.channel, f) 
         """
-        msg = "Farewell to thee, farewell to thee \nThou charming one who dwells in shaded bowers \nOne fond embrace ere I depart \nUntil we meet again." 
+        #msg = "Farewell to thee, farewell to thee \nThou charming one who dwells in shaded bowers \nOne fond embrace ere I depart \nUntil we meet again." 
+        msg = random.choice(proverbs)
         await client.send_message(message.channel, msg)
-
+        await asyncio.sleep(2)
+        await client.send_message(message.channel, "So it is written.")
+        
 # Respond to small brain reaction.
 @client.event
 async def on_reaction_add(reaction, user):
@@ -52,9 +59,4 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('------')
-    #url = 'https://thispersondoesnotexist.com/image'
-    #response = requests.get(url)
-    #img = Image.open(BytesIO(response.content))
-    #img.show
-
 client.run(TOKEN)
