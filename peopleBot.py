@@ -7,6 +7,7 @@ import asyncio
 TOKEN = 'NTUwNTAyNjgwNTM2MDIzMDQx.D1jiQQ.Y9f_MmsbsZcP8cdSVEaw18CFPyo'
 blakes = open("blake.txt", "r")
 proverbs = blakes.read().split('^')
+blakes.close()
 
 client = discord.Client()
 
