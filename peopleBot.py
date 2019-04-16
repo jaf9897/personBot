@@ -11,7 +11,7 @@ blakes.close()
 
 client = discord.Client()
 
-# Main functionality, sends TPDNE image
+# Awaits commands and executes accordingly
 @client.event
 async def on_message(message):
     # we do not want the bot to reply to itself
@@ -20,6 +20,8 @@ async def on_message(message):
 
     # If person is sent
     if message.content.startswith('!person'):
+
+        # Old code from when it sent TPDNE images.
         """ msg = 'Generating image...'.format(message)
         await client.send_message(message.channel, msg)
         imgurl ="https://thispersondoesnotexist.com/image"
@@ -32,12 +34,30 @@ async def on_message(message):
             await client.send_message(message.channel, msg)
             await client.send_file(message.channel, f) 
         """
+
+        # Old code from when it was presumed dead.
         #msg = "Farewell to thee, farewell to thee \nThou charming one who dwells in shaded bowers \nOne fond embrace ere I depart \nUntil we meet again." 
+        
         msg = random.choice(proverbs)
         await client.send_message(message.channel, msg)
         await asyncio.sleep(2)
         await client.send_message(message.channel, "So it is written.")
-        
+    
+    # Waits for '!friend' to resolve conflicts
+    elif message.content.startswith('!friend'):
+        youtube_url = 'https://www.youtube.com/watch?v=htcvoz8x_qY'
+        channel = message.author.voice.voice_channel
+        voice = await client.join_voice_channel(channel)
+        player = await voice.create_ytdl_player(youtube_url)
+        player.start()
+        await asyncio.sleep(227) # Will leave when the entire song is finished 
+        await voice.disconnect()
+
+    # Allows for early conflict resolution
+    elif message.content.startswith('!resolved'):
+        for x in client.voice_clients:
+            return await x.disconnect()
+
 # Respond to small brain reaction.
 @client.event
 async def on_reaction_add(reaction, user):
@@ -60,4 +80,10 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('------')
+    
+
+
+
+
+
 client.run(TOKEN)
