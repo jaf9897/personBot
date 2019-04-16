@@ -48,9 +48,11 @@ async def on_message(message):
         youtube_url = 'https://www.youtube.com/watch?v=htcvoz8x_qY'
         channel = message.author.voice.voice_channel
         voice = await client.join_voice_channel(channel)
-        player = await voice.create_ytdl_player(youtube_url)
+        player = voice.create_ffmpeg_player('friends.mp3', after=lambda: print('Song done'))
         player.start()
-        await asyncio.sleep(227) # Will leave when the entire song is finished 
+        while not player.is_done():
+            await asyncio.sleep(1) # Will leave when the entire song is finished 
+        player.stop()
         await voice.disconnect()
 
     # Allows for early conflict resolution
