@@ -112,7 +112,10 @@ async def on_message(message):
     elif message.content.startswith('!mentions'):
         final = "Current custom mentions:\n"
         for mention, namesList in mentions.items():
-            names = ''.join(namesList)
+            names = ''
+            for x in namesList:
+                names += x + ", "
+            names = names.rstrip(",")
             final += "@" + mention + ": " + names + "\n" 
         await client.send_message(message.channel, final)
 
