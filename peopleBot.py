@@ -108,7 +108,24 @@ async def on_message(message):
             await client.send_message(message.channel, "Successfully created @" + mention)
         else:
             await client.send_message(message.channel, "Unable to create new mention")
+ 
+    elif message.content.startswith('!mentions'):
+        final = "Current custom mentions:\n"
+        for mention, namesList in mentions.items():
+            names = ''.join(namesList)
+            final += "@" + mention + ": " + names + "\n" 
+        await client.send_message(message.channel, final)
 
+    elif message.content.startswith('!botHelp') or message.content.startswith('!bothelp'):
+        final = """personBot is watching.
+    !person - Will return a random poem written by English poet William Blake (1757-1827).
+    !friend - Deploys emergency conflict resolution procedure. You must be in a voice channel for proper execution.
+    !resolved - Ends emergency conflict resolution procedure. Procedure must already be in effect.
+    @[custom] - Will execute the custom mention. You can write a message after the tag like normal, or leave no message.
+    !add - Create a new custom mention. Command must be in the following format:
+
+    '!add mentionName UserA#1234/UserB#1234/UserC#1234'"""
+        await client.send_message(message.channel, final)
 
 # Respond to small brain reaction.
 @client.event
